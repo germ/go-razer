@@ -66,6 +66,17 @@ func (d *Device) Type() string {
 	return s
 }
 
+// Name returns the full name of the device
+func (d *Device) FullName() string {
+	var s string
+	err := dbusCall(d.dbusObject.Call("razer.device.misc.getDeviceName", 0)).Store(&s)
+	if err != nil {
+		log.Printf("reading device name failed: %s", err)
+	}
+
+	return s
+}
+
 // Serial returns the serial no of the device
 func (d *Device) Serial() string {
 	var s string
